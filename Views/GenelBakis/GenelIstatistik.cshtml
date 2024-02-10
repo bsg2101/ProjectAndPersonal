@@ -1,0 +1,182 @@
+﻿@model List<PROJETAKIP.Models.Personel.PersonelBilgileri>
+@{
+    ViewBag.Title = "GenelIstatistik";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs-3.3.7/jq-2.2.4/jszip-3.1.3/pdfmake-0.1.27/dt-1.10.15/b-1.3.1/b-html5-1.3.1/b-print-1.3.1/r-2.1.1/rg-1.0.0/datatables.min.css" />
+
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs-3.3.7/jq-2.2.4/jszip-3.1.3/pdfmake-0.1.27/dt-1.10.15/b-1.3.1/b-html5-1.3.1/b-print-1.3.1/r-2.1.1/rg-1.0.0/datatables.min.js"></script>
+
+<div class="card">
+    <h5 class="card-header">İstatistik Listesi </h5>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-9">
+                <table id="istatistiklistele" class="table table-striped">
+
+                    <thead>
+                        <tr>
+                            <th>Personel Adı</th>
+                            <th>Tamamlanan Proje Sayısı</th>
+                            <th>Tamamlanmayan Proje Sayısı</th>
+                            <th>Toplam Proje Sayısı</th>
+
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var personel in Model)
+                        {
+                            <tr>
+                                <td>@personel.AdSoyad</td>
+                                <td>@ViewBag.TamamlananProjeSayisi[personel.PersonelBilgileriId]</td>
+                                <td>@ViewBag.TamamlanmayanProjeSayisi[personel.PersonelBilgileriId]</td>
+                                <td>@ViewBag.ToplamProjeSayisi[personel.PersonelBilgileriId]</td>
+
+                            </tr>
+                        }
+
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-3">
+
+                <div class="card h-100">
+              
+                    <div class="card-body">
+                        <ul class="p-0 m-0">
+                            <li class="d-flex mb-4 pb-1">
+                                <div class="avatar flex-shrink-0 me-3">
+                                    <img src="~/TEMA/_TEMA/assets/img/icons/unicons/paypal.png" alt="User" class="rounded">
+                                </div>
+                                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                    <div class="me-2">
+                                        <small class="text-muted d-block mb-1">Toplam Personel</small>
+                                       
+                                    </div>
+                                    <div class="user-progress d-flex align-items-center gap-1">
+                                        <h6 class="mb-0">@ViewBag.PersonelSayisi</h6>
+                                        
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="d-flex mb-4 pb-1">
+                                <div class="avatar flex-shrink-0 me-3">
+                                    <img src="~/TEMA/_TEMA/assets/img/icons/unicons/wallet.png" alt="User" class="rounded">
+                                </div>
+                                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                    <div class="me-2">
+                                        <small class="text-muted d-block mb-1">Toplam Proje</small>
+                                        
+                                    </div>
+                                    <div class="user-progress d-flex align-items-center gap-1">
+                                        <h6 class="mb-0">@ViewBag.ProjeSayisi</h6>
+                                       
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="d-flex mb-4 pb-1">
+                                <div class="avatar flex-shrink-0 me-3">
+                                    <img src="~/TEMA/_TEMA/assets/img/icons/unicons/chart.png" alt="User" class="rounded">
+                                </div>
+                                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                    <div class="me-2">
+                                        <small class="text-muted d-block mb-1">Tamamlanan Proje</small>
+                                        <h6 class="mb-0">Refund</h6>
+                                    </div>
+                                    <div class="user-progress d-flex align-items-center gap-1">
+                                        <h6 class="mb-0">@ViewBag.TamamlanmisProje</h6>
+                                       
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="d-flex mb-4 pb-1">
+                                <div class="avatar flex-shrink-0 me-3">
+                                    <img src="~/TEMA/_TEMA/assets/img/icons/unicons/cc-success.png" alt="User" class="rounded">
+                                </div>
+                                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                    <div class="me-2">
+                                        <small class="text-muted d-block mb-1">Tamamlanmayan Proje</small>
+                                        
+                                    </div>
+                                    <div class="user-progress d-flex align-items-center gap-1">
+                                        <h6 class="mb-0">@ViewBag.TamamlanmamisProje</h6>
+                                        
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="d-flex mb-4 pb-1">
+                                <div class="avatar flex-shrink-0 me-3">
+                                    <img src="~/TEMA/_TEMA/assets/img/icons/unicons/wallet.png" alt="User" class="rounded">
+                                </div>
+                                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                    <div class="me-2">
+                                        <small class="text-muted d-block mb-1">Yüksek Öncelikli</small>
+                                        <h6 class="mb-0">Tamamlanmayan</h6>
+                                    </div>
+                                    <div class="user-progress d-flex align-items-center gap-1">
+                                        <h6 class="mb-0">@ViewBag.Basarisiz_Yuksek</h6>
+                                        
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="d-flex">
+                                <div class="avatar flex-shrink-0 me-3">
+                                    <img src="~/TEMA/_TEMA/assets/img/icons/unicons/cc-warning.png" alt="User" class="rounded">
+                                </div>
+                                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                    <div class="me-2">
+                                        <small class="text-muted d-block mb-1">Orta Öncelikli</small>
+                                        <h6 class="mb-0">Tamamlanmayan</h6>
+                                    </div>
+                                    <div class="user-progress d-flex align-items-center gap-1">
+                                        <h6 class="mb-0">@ViewBag.Basarisiz_Orta</h6>
+                                        
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+    </div>
+</div>
+
+<script>
+    $('#istatistiklistele').DataTable({
+        language: {
+            info: "_TOTAL_ kayıttan _START_ - _END_ kayıt gösteriliyor.",
+            infoEmpty: "Gösterilecek hiç kayıt yok.",
+            loadingRecords: "Kayıtlar yükleniyor.",
+            zeroRecords: "Tablo boş",
+            search: "Arama:",
+            infoFiltered: "(toplam _MAX_ kayıttan filtrelenenler)",
+            buttons: {
+                copyTitle: "Panoya kopyalandı.",
+                copySuccess: "Panoya %d satır kopyalandı",
+                copy: "Kopyala",
+                print: "Yazdır",
+            },
+
+            paginate: {
+                first: "İlk",
+                previous: "Önceki",
+                next: "Sonraki",
+                last: "Son"
+            },
+        },
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'excel', 'pdf', 'print'
+        ],
+        responsive: true
+    });
+</script>

@@ -1,0 +1,169 @@
+﻿@model IEnumerable<PROJETAKIP.Models.ProjeTakip.PersonelProjeleri>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs-3.3.7/jq-2.2.4/jszip-3.1.3/pdfmake-0.1.27/dt-1.10.15/b-1.3.1/b-html5-1.3.1/b-print-1.3.1/r-2.1.1/rg-1.0.0/datatables.min.css" />
+
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs-3.3.7/jq-2.2.4/jszip-3.1.3/pdfmake-0.1.27/dt-1.10.15/b-1.3.1/b-html5-1.3.1/b-print-1.3.1/r-2.1.1/rg-1.0.0/datatables.min.js"></script>
+
+<div class="card">
+    <h5 class="card-header">Proje Genel Bakış </h5>
+    <div class="table-responsive text-nowrap">
+        <table class="table table-striped" id="projelistele">
+            <thead>
+                <tr>
+                    <th>Proje Başlığı</th>
+                    <th>Öncelik Durumu</th>
+                    <th>Proje Tarihi</th>
+                    <th>Sorumlular</th>
+                    <th>Durum</th>
+                    <th>Tamamlanma Oranı</th>
+                    <th>Aksiyon</th>
+                    <th>Proje Açıklaması</th>
+                </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+                @foreach (var item in Model)
+                {
+
+                    <tr>
+                        <td><i class="bx bx-sm text-danger me-3"></i><strong>@item.ProjeBaslik</strong></td>
+
+                        <td>
+                            @if (item.OncelikDurumu == "Düşük Öncelikli")
+                            {
+                                <span class="badge bg-label-info me-1" style="width:150px">@item.OncelikDurumu</span>
+                            }
+                            else if (item.OncelikDurumu == "Orta Öncelikli")
+                            {
+                                <span class="badge bg-label-warning me-1" style="width:150px">@item.OncelikDurumu</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-label-primary me-1" style="width:150px">@item.OncelikDurumu</span>
+                            }
+
+                        </td>
+                        <td>@item.OlusturmaTarihi</td>
+                        <td>
+                            <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                                @foreach (var y in item.PersonelBilgileris)
+                                {
+
+                                    <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" aria-label="Lilian Fuller" data-bs-original-title="@y.AdSoyad ">
+                                        <img src="@y.PersonelGorseli" alt="Avatar" class="rounded-circle">
+                                    </li>
+                                }
+
+                            </ul>
+                        </td>
+                        <td>
+                            @if (!item.TamamlanmaDurumu)
+                            {
+                                <span class="badge bg-label-danger me-1" @*style="width:150px"*@><i class="bx bx-error"></i>@*Tamamlanmadı*@</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-label-success me-1" @*style="width:150px"*@><i class="bx bx-check-circle"></i>@*Tamamlandı*@</span>
+                            }
+                        </td>
+                        <td>
+                            @*<div class="progress">
+            <div class="progress-bar" role="progressbar" style="width:@item.TamamlanmaOrani%; color:black" aria-valuenow="@item.TamamlanmaOrani" aria-valuemin="0" aria-valuemax="100">
+                %@item.TamamlanmaOrani
+            </div>
+        </div>*@
+                            @if ((item.TamamlanmaOrani < 101) && (item.TamamlanmaOrani >= 85))
+                            {
+
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: @item.TamamlanmaOrani%" aria-valuenow="@item.TamamlanmaOrani" aria-valuemin="0" aria-valuemax="100">
+                                        %@item.TamamlanmaOrani
+                                    </div>
+
+                                </div>
+                            }
+                            else if ((item.TamamlanmaOrani < 85) && (item.TamamlanmaOrani >= 65))
+                            {
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-body-secondary" role="progressbar" style="width: @item.TamamlanmaOrani%" aria-valuenow="@item.TamamlanmaOrani" aria-valuemin="0" aria-valuemax="100">
+                                        %@item.TamamlanmaOrani
+                                    </div>
+
+                                </div>
+                            }
+                            else if ((item.TamamlanmaOrani < 65) && (item.TamamlanmaOrani >= 30))
+                            {
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-dark" role="progressbar" style="width: @item.TamamlanmaOrani%" aria-valuenow="@item.TamamlanmaOrani" aria-valuemin="0" aria-valuemax="100">
+                                        %@item.TamamlanmaOrani
+                                    </div>
+
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: @item.TamamlanmaOrani%" aria-valuenow="@item.TamamlanmaOrani" aria-valuemin="0" aria-valuemax="100">
+                                        %@item.TamamlanmaOrani
+                                    </div>
+
+                                </div>
+                            }
+
+                        </td>
+                        <td>
+                            <div class="dropdown">
+                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="/PersonelProje/Edit/@item.PersonelProjeId"><i class="bx bx-edit-alt me-1"></i> Düzenle</a>
+                                    <a class="dropdown-item" href="/PersonelProje/Tamamla/@item.PersonelProjeId"><i class="bx bx-check me-1"></i> Tamamla</a>
+
+                                    @*<a class="dropdown-item" href="/PersonelProje/Edit/@item.PersonelProjeId"><i class="bx bx-edit-alt me-1"></i> Düzenle</a>
+                                        <a class="dropdown-item" href="/PersonelProje/Tamamla/@item.PersonelProjeId"><i class="bx bx-check me-1"></i> Tamamla</a>*@
+                                </div>
+                            </div>
+                        </td>
+                        <td>@item.ProjeAciklama</td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    $('#projelistele').DataTable({
+        language: {
+            info: "_TOTAL_ kayıttan _START_ - _END_ kayıt gösteriliyor.",
+            infoEmpty: "Gösterilecek hiç kayıt yok.",
+            loadingRecords: "Kayıtlar yükleniyor.",
+            zeroRecords: "Tablo boş",
+            search: "Arama:",
+            infoFiltered: "(toplam _MAX_ kayıttan filtrelenenler)",
+            buttons: {
+                copyTitle: "Panoya kopyalandı.",
+                copySuccess: "Panoya %d satır kopyalandı",
+                copy: "Kopyala",
+                print: "Yazdır",
+            },
+
+            paginate: {
+                first: "İlk",
+                previous: "Önceki",
+                next: "Sonraki",
+                last: "Son"
+            },
+        },
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'excel', 'pdf', 'print'
+        ],
+        responsive: true
+    });
+</script>

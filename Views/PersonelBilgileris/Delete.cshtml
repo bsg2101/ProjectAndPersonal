@@ -1,0 +1,128 @@
+﻿@model PROJETAKIP.Models.Personel.PersonelBilgileri
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row fv-plugins-icon-container">
+    <div class="col-md-12">
+
+        <div class="card mb-4">
+            <h5 class="card-header">Profil Detayları</h5>
+            <!-- Account -->
+            <!--<div class="card-body">
+                <div class="d-flex align-items-start align-items-sm-center gap-4">
+                    <img src="../../assets/img/avatars/1.png" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar">
+                    <div class="button-wrapper">
+                        <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+                            <span class="d-none d-sm-block">Upload new photo</span>
+                            <i class="bx bx-upload d-block d-sm-none"></i>
+                            <input type="file" id="upload" class="account-file-input" hidden="" accept="image/png, image/jpeg">
+                        </label>
+                        <button type="button" class="btn btn-label-secondary account-image-reset mb-4">
+                            <i class="bx bx-reset d-block d-sm-none"></i>
+                            <span class="d-none d-sm-block">Reset</span>
+                        </button>
+
+                        <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
+                    </div>
+                </div>
+            </div>-->
+            <hr class="my-0">
+            <div class="card-body">
+                <form id="formAccountSettings" method="GET" onsubmit="return false" class="fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate">
+                    <div class="row">
+                        <div class="mb-3 col-md-6 fv-plugins-icon-container">
+                            <label for="firstName" class="form-label">Ad Soyad: </label>
+                            @Html.DisplayFor(model => model.AdSoyad)
+                        </div>
+                        <div class="mb-3 col-md-6 fv-plugins-icon-container">
+                            <label for="lastName" class="form-label">Departman: </label>
+                            @Html.DisplayFor(model => model.Departman)
+                        </div>
+                        <div class="mb-3 col-md-6 fv-plugins-icon-container">
+                            <label for="lastName" class="form-label">Görev: </label>
+                            @Html.DisplayFor(model => model.Gorev)
+                        </div>
+                        <div class="mb-3 col-md-6 fv-plugins-icon-container">
+                            <label for="lastName" class="form-label">E-Posta: </label>
+                            @Html.DisplayFor(model => model.Eposta)
+                        </div>
+                        <div class="mb-3 col-md-6 fv-plugins-icon-container">
+                            <label for="lastName" class="form-label">Telefon NO: </label>
+                            @Html.DisplayFor(model => model.TelNo)
+                        </div>
+                        <div class="mb-3 col-md-6 fv-plugins-icon-container">
+                            <label for="lastName" class="form-label">Yetki: </label>
+                            @Html.DisplayFor(model => model.Yetki)
+                        </div>
+                        <div class="mb-3 col-md-6 fv-plugins-icon-container">
+                            <label for="lastName" class="form-label">TC NO: </label>
+                            @Html.DisplayFor(model => model.TCNO)
+                        </div>
+                        <div class="mb-3 col-md-6 fv-plugins-icon-container">
+                            <label for="lastName" class="form-label">Doğum Tarihi: </label>
+                            @Html.DisplayFor(model => model.dogumTarihi)
+                        </div>
+                        <div class="mb-3 col-md-6 fv-plugins-icon-container">
+                            <label for="lastName" class="form-label">Adresi: </label>
+                            @Html.DisplayFor(model => model.Adres)
+                        </div>
+                        <div class="mb-3 col-md-6 fv-plugins-icon-container">
+                            <label for="lastName" class="form-label">İşe Giriş Tarihi: </label>
+                            @Html.DisplayFor(model => model.IseGirisTarihi)
+                        </div>
+                        <div class="mb-3 col-md-6 fv-plugins-icon-container">
+                            <label for="lastName" class="form-label">Medeni hal: </label>
+                            @Html.DisplayFor(model => model.MedeniHal)
+                        </div>
+                        <div class="mb-3 col-md-6 fv-plugins-icon-container">
+                            <label for="lastName" class="form-label">Görev Açıklama: </label>
+                            @Html.DisplayFor(model => model.PozisyonAciklama)
+                        </div>
+                        <div class="mb-3 col-md-6 fv-plugins-icon-container">
+                            <label for="lastName" class="form-label">Yakın Bilgisi: </label>
+                            @Html.DisplayFor(model => model.YakinBilgisi)
+                        </div>
+                        <div class="mb-3 col-md-6 fv-plugins-icon-container">
+                            <label for="lastName" class="form-label">Yakını Ad Soyad: </label>
+                            @Html.DisplayFor(model => model.YakinAdSoyad)
+                        </div>
+                        <div class="mb-3 col-md-6 fv-plugins-icon-container">
+                            <label for="lastName" class="form-label">Yakın TC NO: </label>
+                            @Html.DisplayFor(model => model.YakinTC)
+                        </div>
+                        <div class="mb-3 col-md-6 fv-plugins-icon-container">
+                            <label for="lastName" class="form-label">Yakın Telefon NO: </label>
+                            @Html.DisplayFor(model => model.YakinTel)
+                        </div>
+                    </div>
+                    <div class="mt-2">
+                        <button id="btnPersonelSil" onclick="onayMesajiGoster" class="btn btn-danger">Personel Sil</button>
+                        <a href="/PersonelBilgileris/Index" type="submit" class="btn btn-primary me-2">Anasayfaya Dön</a>
+                    </div>
+                    <input type="hidden">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    // Kullanıcıya onay mesajı gösteren fonksiyon
+    function onayMesajiGoster() {
+        if (confirm("Personeli silmek istediğinizden emin misiniz?")) {
+            // Kullanıcı onayladıysa, silme işlemini gerçekleştir
+            personelSil();
+        }
+    }
+
+    // Silme işlemini gerçekleştiren fonksiyon
+    function personelSil() {
+        // Formu submit etmek, sayfayı yenilemek veya istediğiniz silme işlemini gerçekleştirmek için gerekli kodları ekleyin
+        document.getElementById("PersonelBilgileris").submit();
+    }
+</script>

@@ -1,0 +1,312 @@
+﻿@model IEnumerable<PROJETAKIP.Models.Personel.PersonelBilgileri>
+@{
+    ViewBag.Title = "CanliDestek";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    /* TR-WP.COM */
+    * {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        border: 0;
+        text-decoration: none;
+        box-sizing: border-box;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    body {
+        font-family: 'Lato', sans-serif;
+        background: #f1f1f1
+    }
+
+    a:link,
+    a:visited {
+        color: #444;
+        text-decoration: none;
+        transition: all .4s ease-in-out
+    }
+
+    #whatsapp-chat {
+        position: initial;
+        background: #fff;
+        width: 100%;
+        border-radius: 15px;
+        box-shadow: 0 1px 15px rgba(32, 33, 36, .28);
+        bottom: 90px;
+        right: 250px;
+        overflow: hidden;
+        z-index: 99;
+        animation-name: showchat;
+        animation-duration: 600ms;
+    }
+
+    a.blantershow-chat {
+        background: linear-gradient(#25d366, #25d366) 14% 84%/16% 16%;
+        color: #fff;
+        position: fixed;
+        z-index: 98;
+        bottom: 25px;
+        right: 30px;
+        font-size: 15px;
+        padding: 10px 20px;
+        border-radius: 30px;
+        box-shadow: 0 1px 15px rgba(32, 33, 36, .28)
+    }
+
+        a.blantershow-chat i {
+            transform: scale(1.2);
+            margin: 0 10px 0 0
+        }
+
+    .header-chat {
+        background: linear-gradient(#25d366, #25d366) 14% 84%/16% 16%;
+        color: #fff;
+        padding: 20px
+    }
+
+        .header-chat h3 {
+            margin: 0 0 10px
+        }
+
+        .header-chat p {
+            font-size: 14px;
+            line-height: 1.7;
+            margin: 0
+        }
+
+    .info-avatar {
+        position: relative
+    }
+
+        .info-avatar img {
+            border-radius: 100%;
+            width: 50px;
+            float: left;
+            margin: 0 10px 0 0
+        }
+
+        .info-avatar:before {
+            content: '\f232';
+            z-index: 1;
+            font-family: "Font Awesome 5 Brands";
+            background: #23ab23;
+            color: #fff;
+            padding: 4px 5px;
+            border-radius: 100%;
+            position: absolute;
+            top: 30px;
+            left: 30px
+        }
+
+    a.informasi {
+        padding: 20px;
+        display: block;
+        overflow: hidden;
+        animation-name: showhide;
+        animation-duration: 600ms;
+    }
+
+        a.informasi:hover {
+            background: #f1f1f1
+        }
+
+    .info-chat span {
+        display: block
+    }
+
+    #get-label,
+    span.chat-label {
+        font-size: 12px;
+        color: #888
+    }
+
+    #get-nama,
+    span.chat-nama {
+        margin: 5px 0 0;
+        font-size: 15px;
+        font-weight: 700;
+        color: #222
+    }
+
+    #get-label,
+    #get-nama {
+        color: #fff
+    }
+
+    span.my-number {
+        display: none
+    }
+
+    textarea#chat-input {
+        width: 100%;
+        border: solid 1px #e2e2e2;
+        border-radius: 30px;
+        font-size: 13px;
+        height: 45px;
+        margin: 0;
+        outline: none;
+        resize: none;
+        padding: 15px 20px;
+        overflow: hidden;
+    }
+
+    a#send-it {
+        color: #555;
+        width: 41px;
+        font-weight: 700;
+        padding: 8px;
+        background: #e2e2e2;
+        margin-right: 9px;
+        border-radius: 50%;
+        position: absolute;
+        right: 2px;
+        height: 43px;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .first-msg {
+        background: #f5f5f5;
+        padding: 30px;
+        text-align: center
+    }
+
+        .first-msg span {
+            background: #e2e2e2;
+            color: #333;
+            font-size: 14.2px;
+            line-height: 1.7;
+            border-radius: 10px;
+            padding: 15px 20px;
+            display: inline-block
+        }
+
+    .start-chat .blanter-msg {
+        display: flex;
+        padding: 10px;
+    }
+
+    #get-number {
+        display: none
+    }
+
+    a.close-chat {
+        position: absolute;
+        top: 5px;
+        right: 15px;
+        color: #fff;
+        font-size: 30px
+    }
+
+    a.back-chat {
+        position: absolute;
+        top: 15px;
+        right: 40px;
+        color: #fff;
+        font-size: 16px;
+    }
+
+    .hide {
+        display: none;
+        animation-name: showhide;
+        animation-duration: 600ms;
+        opacity: 1
+    }
+
+    .show {
+        display: block;
+        animation-name: showhide;
+        animation-duration: 600ms;
+        opacity: 1
+    }
+</style>
+
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>WhatsApp Canlı Destek</title>
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.8.2/css/all.css'>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Lato'>
+</head>
+<body>
+    <div id='whatsapp-chat' class='show'>
+        <div class='header-chat'>
+            <div class='head-home'>
+                <h3>Mesaj Merkezi</h3>
+                <p><span>1</span> Yeni Mesajınız Var</p>
+            </div>
+            <div class='get-new hide'>
+                <a class='back-chat' href='#'><i class="fas fa-chevron-left"></i></a>
+                <div id='get-label'></div>
+                <div id='get-nama'></div>
+            </div>
+        </div>
+        <div class='home-chat'>
+            @foreach (var item in Model)
+            {
+                <a class='informasi' href='#' title='Chat Whatsapp'>
+                    <div class='info-avatar'><img src='@item.PersonelGorseli' /></div>
+                    <div class='info-chat'>
+                        <span class='chat-label'>@item.Departman</span>
+                        <span class='chat-nama'>@item.AdSoyad</span>
+                    </div>
+                    <span class='my-number'>@item.TelNo</span>
+                </a>
+            }
+
+        </div>
+        <div class='start-chat hide'>
+            <div class='first-msg'><span>Merhaba, size nasıl yardımcı olabilirim?</span></div>
+            <div class='blanter-msg'>
+                <textarea id='chat-input' placeholder='İleti giriniz.' maxlength='120' row='1'></textarea>
+                <a href='#;' id='send-it'><i class="fas fa-paper-plane"></i></a>
+            </div>
+        </div>
+        <div id='get-number'></div>
+        <a class='close-chat' href='#'>×</a>
+    </div>
+    <a class='blantershow-chat' href='#' title='Show Chat'><i class='fab fa-whatsapp'></i>WhatsApp Canlı Destek</a>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+    <script src="./script.js"></script>
+</body>
+</html>
+
+<script>
+    /* TR-WP.COM */
+    $(document).on("click", "#send-it", function () {
+        var a = document.getElementById("chat-input");
+        if ("" != a.value) {
+            var b = $("#get-number").text(),
+                c = document.getElementById("chat-input").value,
+                d = "https://web.whatsapp.com/send",
+                e = b,
+                f = "&text=" + c;
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) var d = "whatsapp://send";
+            var g = d + "?phone=" + e + f;
+            window.open(g, '_blank')
+        }
+    }),
+
+        $(document).on("click", ".informasi", function () {
+            document.getElementById("get-number").innerHTML = $(this).children(".my-number").text(), $(".start-chat,.get-new").addClass("show").removeClass("hide"), $(".home-chat,.head-home").addClass("hide").removeClass("show"), document.getElementById("get-nama").innerHTML = $(this).children(".info-chat").children(".chat-nama").text(), document.getElementById("get-label").innerHTML = $(this).children(".info-chat").children(".chat-label").text()
+        }),
+
+        $(document).on("click", ".close-chat", function () {
+            $("#whatsapp-chat").addClass("hide").removeClass("show");
+        }),
+
+        $(document).on("click", ".back-chat", function () {
+            $(".home-chat").addClass("show").removeClass("hide");
+            $(".start-chat").addClass("hide").removeClass("show");
+            $(".head-home").addClass("show").removeClass("hide");
+            $(".get-new").addClass("hide").removeClass("show");
+        }),
+
+        $(document).on("click", ".blantershow-chat", function () {
+            $("#whatsapp-chat").addClass("show").removeClass("hide")
+        });
+</script>

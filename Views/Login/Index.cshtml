@@ -1,0 +1,144 @@
+﻿@model IEnumerable<PROJETAKIP.Models.Personel.PersonelBilgileri>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en"
+      class="light-style layout-wide customizer-hide"
+      dir="ltr"
+      data-theme="theme-default"
+      data-assets-path="~/TEMA/_TEMA/assets/"
+      data-template="vertical-menu-template-free">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+    <title>BSG</title>
+
+    <meta name="description" content="" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="~/TEMA/_TEMA/assets/img/favicon/favicon.ico" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+          rel="stylesheet" />
+
+    <link rel="stylesheet" href="~/TEMA/_TEMA/assets/vendor/fonts/boxicons.css" />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="~/TEMA/_TEMA/assets/vendor/css/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="~/TEMA/_TEMA/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="~/TEMA/_TEMA/assets/css/demo.css" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="~/TEMA/_TEMA/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+
+    <!-- Page CSS -->
+    <!-- Page -->
+    <link rel="stylesheet" href="~/TEMA/_TEMA/assets/vendor/css/pages/page-auth.css" />
+
+    <!-- Helpers -->
+    <script src="~/TEMA/_TEMA/assets/vendor/js/helpers.js"></script>
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+    <script src="~/TEMA/_TEMA/assets/js/config.js"></script>
+</head>
+
+<body>
+    <!-- Content -->
+
+    <div class="container-xxl">
+        <div class="authentication-wrapper authentication-basic container-p-y">
+            <div class="authentication-inner">
+                <!-- Register -->
+                <div class="card">
+                    <div class="card-body">
+                        <!-- Logo -->
+                        <div class="app-brand justify-content-center">
+                            <a href="index.html" class="app-brand-link gap-2">
+                                <span class="app-brand-logo demo">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1200" height="867" xml:space="preserve" version="1.1" viewBox="0 0 1200 867">
+                                    <image width="1200" height="867" xlink:href="data:image/png;base64,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" />
+                                    </svg>
+                                </span>
+                                <span class="app-brand-text demo text-body fw-bold">BSG</span>
+                            </a>
+                        </div>
+                        <!-- /Logo -->
+                        <h4 class="mb-2">Personel ve Proje Yönetim Sistemi 👋</h4>
+                        <p class="mb-4">Daha fazlası için bizimle iletişime geçiniz.</p>
+
+                        <form id="formAuthentication" class="mb-3" action="/Login/index" method="POST">
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Kullanıcı Adı</label>
+                                <input type="text"
+                                       class="form-control"
+                                       id="Eposta"
+                                       name="Eposta"
+                                       placeholder="Kullanıcı adını gir"
+                                       autofocus />
+                            </div>
+                            <div class="mb-3 form-password-toggle">
+                                <div class="d-flex justify-content-between">
+                                    <label class="form-label" for="password">Şifre</label>
+                                    <a href="auth-forgot-password-basic.html">
+                                        <small>Şifreni mi Unuttun?</small>
+                                    </a>
+                                </div>
+                                <div class="input-group input-group-merge">
+                                    <input type="password"
+                                           id="Sifre"
+                                           class="form-control"
+                                           name="Sifre"
+                                           placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                                           aria-describedby="password" />
+                                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="remember-me" />
+                                    <label class="form-check-label" for="remember-me">Beni Hatırla </label>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <button class="btn btn-primary d-grid w-100" type="submit">Giriş Yap</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- /Register -->
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Core JS -->
+    <!-- build:js assets/vendor/js/core.js -->
+
+    <script src="~/TEMA/_TEMA/assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="~/TEMA/_TEMA/assets/vendor/libs/popper/popper.js"></script>
+    <script src="~/TEMA/_TEMA/assets/vendor/js/bootstrap.js"></script>
+    <script src="~/TEMA/_TEMA/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="~/TEMA/_TEMA/assets/vendor/js/menu.js"></script>
+
+    <!-- endbuild -->
+    <!-- Vendors JS -->
+    <!-- Main JS -->
+    <script src="~/TEMA/_TEMA/assets/js/main.js"></script>
+
+    <!-- Page JS -->
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+</body>
+</html>
+

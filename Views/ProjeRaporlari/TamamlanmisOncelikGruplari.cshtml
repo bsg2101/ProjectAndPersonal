@@ -1,0 +1,111 @@
+﻿@model IEnumerable<PROJETAKIP.Models.ProjeTakip.PersonelProjeleri>
+
+@{
+    ViewBag.Title = "TamamlanmisOncelikGruplari";
+    Layout = null;
+}
+
+<div class="col-md-12">
+
+    <div class="card card-info">
+
+        <div class="card-header">
+
+            <h3 class="card-title"><b>Tamamlanmış Öncelik Grup Dağılımı </b></h3>
+
+        </div>
+
+        <div class="card-body">
+
+            <div id="TamamlanmisGrafikChart_Div"></div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+
+        $(document).ready(function () {
+
+            $.ajax({
+
+                type: "POST",
+
+                dataType: "json",
+
+                contentType: "application/json",
+
+                url: '@Url.Action("VisualizeTamamlanmisDurumGruplari", "ProjeRaporlari")',
+
+                success: function (result) {
+
+                    google.charts.load('current', {
+
+                        'packages': ['corechart']
+
+                    });
+
+                    google.charts.setOnLoadCallback(function () {
+
+                        drawKategoriChart(result);
+
+                    });
+
+                }
+
+            });
+
+        });
+
+    function drawKategoriChart(result) {
+
+            var data = new google.visualization.DataTable();
+
+        data.addColumn('string', 'onceliktipi');
+
+        data.addColumn('number', 'Adet');
+
+            var dataArray = [];
+
+            $.each(result, function (i, obj) {
+
+                dataArray.push([obj.onceliktipi, obj.oncelikadeti]);
+
+            });
+
+            data.addRows(dataArray);
+
+        var mycolumnChartOptions = {
+                title: "Grafik",
+
+                is3D: true,
+
+                width: "100%",
+
+                height: 390,
+
+                pieHole: 0.8,
+
+                bar: { groupWidth: "40%" },
+
+            };
+
+            var mycolumnChart = new google.visualization.BarChart(document
+
+                .getElementById('TamamlanmisGrafikChart_Div'));
+
+            mycolumnChart.draw(data, mycolumnChartOptions);
+
+    }
+
+
+
+</script>

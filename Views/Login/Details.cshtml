@@ -1,0 +1,163 @@
+﻿@model PROJETAKIP.Models.Personel.PersonelBilgileri
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/Error.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PersonelBilgileri</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Eposta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Eposta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sifre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sifre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Yetki)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Yetki)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AdSoyad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AdSoyad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PersonelGorseli)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PersonelGorseli)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TCNO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TCNO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Departman)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Departman)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gorev)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gorev)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PozisyonAciklama)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PozisyonAciklama)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TelNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TelNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Adres)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Adres)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MedeniHal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MedeniHal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.YakinBilgisi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.YakinBilgisi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.YakinTC)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.YakinTC)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.YakinAdSoyad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.YakinAdSoyad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.YakinTel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.YakinTel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dogumTarihi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dogumTarihi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IseGirisTarihi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IseGirisTarihi)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PersonelBilgileriId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
